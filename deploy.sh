@@ -4,10 +4,10 @@
 set -e
 
 export MILJO_NAVN=${1}
-export FRONTEND_BRANCH=${4}
-export FRONTEND_TAG=${5}
-export BACKEND_BRANCH=${2}
-export BACKEND_TAG=${3}
+export FRONTEND_BRANCH=${2}
+export FRONTEND_TAG=${3}
+export BACKEND_BRANCH=${4}
+export BACKEND_TAG=${5}
 
 echo "Deploy starter, fikk disse input parametre:"
 echo "Miljo: ${MILJO_NAVN}"
