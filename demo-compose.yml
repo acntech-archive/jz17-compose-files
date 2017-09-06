@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+  frontend:
+    image: registry.jz17demo.acntech.no:5000/jz17-frontend-app/${FRONTEND_BRANCH}:${FRONTEND_TAG}
+    environment:
+      - BACKEND_BASE_URL=http://backend:8080/backend/rest
+    ports:
+      - 3000
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      jz17demo.dashboard.include: "true"
+
+  backend:
+    image: registry.jz17demo.acntech.no:5000/jz17-backend-app/${BACKEND_BRANCH}:${BACKEND_TAG}
+    ports:
+      - 8080
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      jz17demo.dashboard.include: "true"
+
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=hunter2

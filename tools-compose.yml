@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - "jenkins_home:/var/jenkins_home"
+
+  jenkins-slave:
+    image: acntechie/jz17-jenkins-slave
+    command: -url http://jz17demo.acntech.no:8080 cf3ec915b7d84129b23e227673771110c7f838fce5905029df39820681eef9fe agent1
+    volumes:
+      - "jenkins_slave:/home/jenkins"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  registry:
+    image: registry:2
+    ports:
+      - "5000:5000"
+    volumes:
+      - "docker_registry:/var/lib/registry"
+
+  registry-frontend:
+    image: konradkleine/docker-registry-frontend:v2
+    ports:
+      - "9090:80"
+    environment:
+      - ENV_DOCKER_REGISTRY_HOST=registry.jz17demo.acntech.no
+      - ENV_DOCKER_REGISTRY_PORT=5000
+
+  rundeck:
+    image: jordan/rundeck:latest
+    ports:
+      - "4440:4440"
+    environment:
+      - SERVER_URL=http://jz17demo.acntech.no:4440
+    volumes:
+      - "rundeck_etc:/etc/rundeck"
+      - "rundeck_var:/var/rundeck"
+      - "rundeck_ssh:/var/lib/rundeck/.ssh"
+      - "rundeck_mysql:/var/lib/mysql"
+      - "rundeck_var_log:/var/log/rundeck"
+      - "rundeck_plugins:/opt/rundeck-plugins"
+      - "rundeck_logs:/var/lib/rundeck/logs"
+      - "rundeck_storage:/var/lib/rundeck/var/storage"
+
+volumes:
+  jenkins_home:
+  jenkins_slave:
+  docker_registry:
+  rundeck_etc:
+  rundeck_var:
+  rundeck_ssh:
+  rundeck_mysql:
+  rundeck_var_log:
+  rundeck_plugins:
+  rundeck_logs:
+  rundeck_storage:
