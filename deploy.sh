@@ -10,7 +10,7 @@ export BACKEND_BRANCH=${2}
 export BACKEND_TAG=${3}
 
 echo "Deploy starter, fikk disse input parametre:"
-echo "Miljo: ${MILJO}"
+echo "Miljo: ${MILJO_NAVN}"
 echo "Frontend: ${FRONTEND_BRANCH}:${FRONTEND_TAG}"
 echo "Backend: ${BACKEND_BRANCH}:${BACKEND_TAG}"
 echo
