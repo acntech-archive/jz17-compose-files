@@ -6,6 +6,7 @@ services:
     image: registry.jz17demo.acntech.no:5000/jz17-frontend-app/${FRONTEND_BRANCH}:${FRONTEND_TAG}
     environment:
       - BACKEND_BASE_URL=http://backend:8080/backend/rest
+    command: ["dockerize", "--wait", "http://backend:8080/backend/rest/todos", "npm", "start"]
     ports:
       - 3000
     volumes:
