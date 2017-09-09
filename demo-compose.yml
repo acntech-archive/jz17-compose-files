@@ -15,6 +15,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     labels:
       jz17demo.dashboard.include: "true"
+      jz17demo.dashboard.environment.type: "todoapp"
 
   backend:
     image: registry.jz17demo.acntech.no:5000/jz17-backend-app/${BACKEND_BRANCH}:${BACKEND_TAG}
@@ -24,8 +25,12 @@ services:
       - /etc/localtime:/etc/localtime:ro
     labels:
       jz17demo.dashboard.include: "true"
+      jz17demo.dashboard.environment.type: "todoapp"
 
   database:
     image: postgres
     environment:
       - POSTGRES_PASSWORD=hunter2
+    labels:
+      jz17demo.dashboard.include: "true"
+      jz17demo.dashboard.environment.type: "todoapp"
